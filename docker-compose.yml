@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "Bridge"
+      POSTGRES_USER: "Bridge_Postgre"
+      POSTGRES_PASSWORD: "Bridge_Password1234"
+    ports:
+      - "5432:5432"
