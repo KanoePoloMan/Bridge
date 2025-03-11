@@ -1,35 +1,40 @@
 package s21.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import s21.domain.services.AuthFilter;
+import lombok.RequiredArgsConstructor;
+import s21.web.model.jwt.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfiguration {
-    @Autowired
-    private AuthFilter authFilter;
-
+    private final JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(request-> request
-                .requestMatchers("/authentication", "/registration").anonymous()
-                .requestMatchers("/error").permitAll()
+                .requestMatchers("/login", "/registration", "/authentication").anonymous()
+                .requestMatchers("/error", "/token", "/app").permitAll()
+                .requestMatchers("/scripts/*").permitAll()
                 .anyRequest().authenticated()
             )
-            .formLogin(form -> form.loginPage("/authentication")
-                                   .defaultSuccessUrl("/")
-            )
+            .formLogin(AbstractHttpConfigurer::disable)
+            .httpBasic(AbstractHttpConfigurer::disable)
             .build();
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

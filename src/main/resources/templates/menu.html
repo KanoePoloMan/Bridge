@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список друзей и серверов</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #2d2d2d;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .list {
+            margin-bottom: 20px;
+        }
+
+        .list h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #cccccc;
+        }
+
+        .list button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #3d3d3d;
+            color: #ffffff;
+            border: none;
+            text-align: left;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .list button:hover {
+            background-color: #4d4d4d;
+        }
+
+        .upload-section {
+            margin-top: 20px;
+        }
+
+        .upload-section input[type="file"] {
+            display: none;
+        }
+
+        .upload-section label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3d3d3d;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .upload-section label:hover {
+            background-color: #4d4d4d;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="list" id="friends-list">
+            <h2>Друзья</h2>
+            <!-- Список друзей будет здесь -->
+        </div>
+        <div class="list" id="servers-list">
+            <h2>Серверы</h2>
+            <!-- Список серверов будет здесь -->
+        </div>
+    </div>
+    <div class="content">
+        <div class="upload-section">
+            <label for="html-upload">Загрузить HTML страницу</label>
+            <input type="file" id="html-upload" accept=".html">
+        </div>
+    </div>
+
+    <script src="/scripts/menu.js"></script>
+</body>
+</html>
