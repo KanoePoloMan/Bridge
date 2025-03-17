@@ -38,3 +38,6 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+tasks.bootJar {
+    destinationDirectory = file("./")
+}
