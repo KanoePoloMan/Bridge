@@ -14,6 +14,7 @@ import s21.datasource.repository.UserRepository;
 import s21.domain.model.Role;
 import s21.web.mapper.UserDatasourceWebMapper;
 import s21.web.model.UserDTO;
+import s21.web.model.jwt.JwtProvider;
 import s21.web.model.jwt.JwtRequest;
 import s21.web.model.jwt.JwtResponse;
 
@@ -22,6 +23,9 @@ import s21.web.model.jwt.JwtResponse;
 public class RegistrationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    private final AuthenticationService authenticationService;
+    private final JwtProvider jwtProvider;
 
     private final UserDatasourceWebMapper toWebMapper = UserDatasourceWebMapper.INSTANCE;
     private final UserWebDatasourceMapper toDatasourceMapper = UserWebDatasourceMapper.INSTANCE;
@@ -36,6 +40,13 @@ public class RegistrationService {
                                List.of(Role.USER));
 
             userRepository.save(toDatasourceMapper.webToDatasource(user));
+
+            final String accessToken = jwtProvider.generateAccessToken(user);
+            final String refreshToken = jwtProvider.generateRefreshToken(user);
+
+            authenticationService.addRefreshToken(user.getUsername(), refreshToken);
+
+            return new JwtResponse(accessToken, refreshToken);
         }
         throw new AuthException("Invalid registration. User already exists");
     }

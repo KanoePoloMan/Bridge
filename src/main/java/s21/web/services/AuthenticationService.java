@@ -81,4 +81,7 @@ public class AuthenticationService {
     public JwtAuthentication getAuthentication() {
         return (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
     }
+    public void addRefreshToken(String username, String token) {
+        refreshStorage.put(username, token);
+    }
 }
