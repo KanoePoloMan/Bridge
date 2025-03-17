@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,10 +22,12 @@ import lombok.NoArgsConstructor;
 @Entity
 public class FriendsDAO {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
     @Column(name="user_uuid")
     private UUID uuid;
     @Column(name="friend_uuid")
     private UUID friend;
     @Column(name="state")
-    private short state;
+    private String state;
 }

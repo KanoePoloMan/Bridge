@@ -20,9 +20,10 @@ import lombok.NoArgsConstructor;
 @Entity
 public class ServerMembersDAO {
     @Id
+    private int id;
     @Column(name="server_uuid")
     private UUID server;
     @Column(name="user_uuid")
-    private UUID uses;
-    private short state;
+    private UUID user;
+    private String state;
 }
