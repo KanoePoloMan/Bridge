@@ -28,7 +28,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf:3.4.0")
 
-    implementation("org.springframework.boot:spring-boot-docker-compose:3.4.0")
+    // implementation("org.springframework.boot:spring-boot-docker-compose:3.4.0")
 
     implementation("io.jsonwebtoken:jjwt-api:0.12.6")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
