@@ -9,7 +9,6 @@ import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;
 import s21.web.model.jwt.JwtRequest;
 import s21.web.model.jwt.JwtResponse;
-import s21.web.model.jwt.RefreshJwtRequest;
 import s21.web.services.AuthenticationService;
 import s21.web.services.RegistrationService;
 
@@ -31,15 +30,4 @@ public class LoginControllerRest {
         final JwtResponse token = registrationService.registration(entity);
         return ResponseEntity.ok(token);
     }
-    @PostMapping("/token")
-    public ResponseEntity<JwtResponse> accessToken(@RequestBody RefreshJwtRequest entity) {
-        final JwtResponse token = authenticationService.updateAccessToken(entity.refreshToken());
-        return ResponseEntity.ok(token);
-    }
-    @PostMapping("/refresh")
-    public ResponseEntity<JwtResponse> refreshToken(@RequestBody RefreshJwtRequest entity) throws AuthException {
-        final JwtResponse token = authenticationService.updateRefreshToken(entity.refreshToken());
-        return ResponseEntity.ok(token);
-    }
-    
 }

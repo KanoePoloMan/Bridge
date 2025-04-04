@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import s21.datasource.ServerDAO;
-import s21.datasource.ServerMembersDAO;
 import s21.datasource.repository.ServerMembersRepository;
 import s21.datasource.repository.ServersRepository;
+import s21.datasource.servers.ServerDAO;
+import s21.datasource.servers.ServerMembersDAO;
 
 @Service
 @RequiredArgsConstructor

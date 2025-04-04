@@ -24,7 +24,6 @@ public class RegistrationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private final AuthenticationService authenticationService;
     private final JwtProvider jwtProvider;
 
     private final UserDatasourceWebMapper toWebMapper = UserDatasourceWebMapper.INSTANCE;
@@ -41,12 +40,9 @@ public class RegistrationService {
 
             userRepository.save(toDatasourceMapper.webToDatasource(user));
 
-            final String accessToken = jwtProvider.generateAccessToken(user);
-            final String refreshToken = jwtProvider.generateRefreshToken(user);
+            final String token = jwtProvider.generateAccessToken(user);
 
-            authenticationService.addRefreshToken(user.getUsername(), refreshToken);
-
-            return new JwtResponse(accessToken, refreshToken);
+            return new JwtResponse(token);
         }
         throw new AuthException("Invalid registration. User already exists");
     }

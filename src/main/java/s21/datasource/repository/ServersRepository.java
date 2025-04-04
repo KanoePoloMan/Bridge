@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import s21.datasource.ServerDAO;
+import s21.datasource.servers.ServerDAO;
 
 @Repository
 public interface ServersRepository extends CrudRepository<ServerDAO, UUID> {

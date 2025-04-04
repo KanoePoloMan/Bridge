@@ -8,6 +8,5 @@ import lombok.Getter;
 public class JwtResponse {
     private final String type = "Bearer";
 
-    private final String accessToken;
-    private final String refreshToken;
+    private final String token;
 }

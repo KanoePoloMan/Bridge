@@ -19,20 +19,17 @@ import s21.web.model.UserDTO;
 @Component
 public class JwtProvider {
     private final SecretKey jwtAccessSecret;
-    private final SecretKey jwtRefreshSecret;
 
     public  JwtProvider(
-        @Value("${jwt.secret.access}") String jwtAccessSecret,
-        @Value("${jwt.secret.refresh}") String jwtRefreshSecret
+        @Value("${jwt.secret.access}") String jwtAccessSecret
     ) {
         this.jwtAccessSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtAccessSecret));
-        this.jwtRefreshSecret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtRefreshSecret));
     }
 
 
     public String generateAccessToken(UserDTO user) {
         final LocalDateTime now = LocalDateTime.now();
-        final Instant accessExpirationInstant = now.plusMinutes(15).atZone(ZoneId.systemDefault()).toInstant();
+        final Instant accessExpirationInstant = now.plusDays(7).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpiration = Date.from(accessExpirationInstant);
 
         return Jwts.builder()
@@ -43,24 +40,11 @@ public class JwtProvider {
                 .claim("roles", user.getAuthorities())
                 .compact();
     }
-    public String generateRefreshToken(UserDTO user) {
-        final LocalDateTime now = LocalDateTime.now();
-        final Instant refreshExpirationInstant = now.plusDays(30).atZone(ZoneId.systemDefault()).toInstant();
-        final Date refreshExpiration = Date.from(refreshExpirationInstant);
 
-        return Jwts.builder()
-                .subject(user.getUsername())
-                .expiration(refreshExpiration)
-                .signWith(jwtRefreshSecret)
-                .claim("uuid", user.getUuid())
-                .compact();
-    }
     public boolean validateAccessToken(String accessToken) {
         return validateToken(accessToken, jwtAccessSecret);
     }
-    public boolean validateRefreshToken(String refreshToken) {
-        return validateToken(refreshToken, jwtRefreshSecret);
-    }
+
     @SuppressWarnings("UseSpecificCatch")
     private boolean validateToken(String token, SecretKey secret) {
         try {
@@ -76,9 +60,6 @@ public class JwtProvider {
     }
     public Claims getAccessClaims(String token) {
         return getClaims(token, jwtAccessSecret);
-    }
-    public Claims getRefreshClaims(String token) {
-        return getClaims(token, jwtRefreshSecret);
     }
     private Claims getClaims(String token, SecretKey secret) {
         return Jwts.parser()
