@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import s21.datasource.UserDAO;
+import s21.datasource.model.UserDAO;
 import s21.domain.model.Role;
 import s21.domain.model.User;
 

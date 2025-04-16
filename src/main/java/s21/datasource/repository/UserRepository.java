@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import s21.datasource.UserDAO;
+import s21.datasource.model.UserDAO;
 
 @Repository
 public interface UserRepository extends CrudRepository<UserDAO, UUID> {

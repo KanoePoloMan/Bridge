@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import s21.datasource.messages.MessageStatus;
+import s21.datasource.model.messages.MessageStatus;
 
 @Getter
 @Setter

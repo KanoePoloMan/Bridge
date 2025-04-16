@@ -6,7 +6,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
-import s21.web.services.handlers.SocketConnectionHandler;
+import s21.domain.handlers.SocketConnectionHandler;
 
 
 @Configuration

@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import s21.datasource.messages.ChatMessageDAO;
+import s21.datasource.model.messages.ChatMessageDAO;
 
 
 @Repository

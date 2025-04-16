@@ -24,9 +24,8 @@ public class SecurityConfiguration {
             .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/login", "/registration", "/authentication").anonymous()
-                .requestMatchers("/error", "/token", "/app").permitAll()
-                .requestMatchers("/scripts/*").permitAll()
+                .requestMatchers("/v1/registration", "/v1/authentication").anonymous()
+                .requestMatchers("/error").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(AbstractHttpConfigurer::disable)

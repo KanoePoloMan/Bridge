@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import jakarta.transaction.Transactional;
-import s21.datasource.friends.FriendsDAO;
+import s21.datasource.model.friends.FriendsDAO;
 
 
 @Repository
